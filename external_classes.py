@@ -1,4 +1,4 @@
-import tqdm # for progess bars
+from tqdm import tqdm # for progess bars
 import requests # for downloading files with error handling capacities
 import os # for files handling
 
@@ -79,7 +79,8 @@ class LinkSourceList:
                 print(link)
 
     def downloadAll(self): #TODO: add a way to filter files to download
-        for subdirectoryName in self.getMailList().keys(): # creating the required directories
+        print("Creating needed directories\n------------------------------\n")
+        for subdirectoryName in tqdm(self.getMailList().keys()): # creating the required directories
             newDirectoryPath = os.path.join(self._parentDirectoryPath, subdirectoryName)
 
             if not os.path.isdir(newDirectoryPath):
@@ -88,6 +89,14 @@ class LinkSourceList:
                 except:
                     #FIXME: error handling
                     ...
+                else:
+                    # print(f"\"{newDirectoryPath}\" created successfully")
+                    ...
 
-        for link in self.getLinks():
+        print("\nDownloading files\n--------------------\n")
+        for link in tqdm(self.getLinks()):
             link.download()
+
+
+    def cleanUp(): # removed unused directories that were created
+        ...
