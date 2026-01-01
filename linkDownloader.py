@@ -38,9 +38,8 @@ clearScreen()
 
 srcList = ec.LinkSourceList(FILEPATH, PARENT_DIRECTORY)
 
-srcList.printLinks(verbose=True)
+errMessage = srcList.downloadAll()
 
-# testing
-
-input(">> ")
-srcList.downloadAll()
+if errMessage:
+    print(f"Erorr: {errMessage}")
+    exit(1)
