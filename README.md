@@ -13,3 +13,11 @@ Later when I wanted to download the files, I realized could've just solved all t
 
 ## Format Guide
 (WIP)
+
+## Upcoming Features (WIP)
+### Automatic formating for directory and file names
+This will include snakecase, camelcase, automatic file naming, and file extension addition to file names. This be set by the user when running the program.
+### Interactive mode
+This will run the program with a TUI that includes image displays, file and directory name changing, and a chance to manually select which files to download.
+### Silent mode
+This will run the program without displaying any errors that were encountered during runtime. It will instead store any error found in a log file for later use.
