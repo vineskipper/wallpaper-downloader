@@ -10,21 +10,29 @@ class Link:
         self._link: str = link
         self._fileName: str = newName
         self._targetDirectoryPath: str = targetDirectoryPath
+        self._fullPath = os.path.join(self._targetDirectoryPath, self._fileName)
 
     def __str__(self):
         return self._link
     
-    def download(self): # return a status code on the success of the download process
+    def download(self) -> bool: # return a status code on the success of the download process
         response = requests.get(self._link)
 
         if response.status_code == 200:
-            ...
+            with open(self._fullPath, "wb") as file:
+                file.write(response.content)
+
+            return True
         
         else:
             #FIXME: error handling
-            ...
+            print("error")
+            return False
 
 class LinkSourceList:
+    def format(string: str, mode: int = 0) -> str:
+        ...
+
     def __init__ (self, filePath: str, parentDirectoryPath: str, format=None):
         self._filePath = filePath
         self._mailList: dict =  {}
@@ -61,12 +69,25 @@ class LinkSourceList:
         return self._links
 
     def printLinks(self, verbose: bool = False):
+        links = self.getLinks()
+
         if verbose:
-            for link in self.getLinks():
+            for link in links:
                 print(f"({link._link}) goes to [{link._targetDirectoryPath}] as \"{link._fileName}\"")
         else:
-            for link in self.getLinks():
+            for link in links:
                 print(link)
 
-    def downloadAll(self):
-        ...
+    def downloadAll(self): #TODO: add a way to filter files to download
+        for subdirectoryName in self.getMailList().keys(): # creating the required directories
+            newDirectoryPath = os.path.join(self._parentDirectoryPath, subdirectoryName)
+
+            if not os.path.isdir(newDirectoryPath):
+                try:
+                    os.makedirs(newDirectoryPath)
+                except:
+                    #FIXME: error handling
+                    ...
+
+        for link in self.getLinks():
+            link.download()
