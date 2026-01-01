@@ -78,7 +78,9 @@ class LinkSourceList:
             for link in links:
                 print(link)
 
-    def downloadAll(self): #TODO: add a way to filter files to download
+    def downloadAll(self) -> str: #TODO: add a way to filter files to download
+        errMessage = ""
+
         print("Creating needed directories\n------------------------------\n")
         for subdirectoryName in tqdm(self.getMailList().keys()): # creating the required directories
             newDirectoryPath = os.path.join(self._parentDirectoryPath, subdirectoryName)
@@ -88,15 +90,18 @@ class LinkSourceList:
                     os.makedirs(newDirectoryPath)
                 except:
                     #FIXME: error handling
-                    ...
-                else:
-                    # print(f"\"{newDirectoryPath}\" created successfully")
-                    ...
+                    errMessage = f"\"{newDirectoryPath}\" could not be created"
+                    return errMessage
 
         print("\nDownloading files\n--------------------\n")
         for link in tqdm(self.getLinks()):
-            link.download()
+            success = link.download()
 
+            if not success:
+                errMessage = f"\"{link._link}\" could not be downloaded"
+                return errMessage
+
+        return errMessage
 
     def cleanUp(): # removed unused directories that were created
         ...
