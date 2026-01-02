@@ -58,7 +58,7 @@ class LinkSourceList:
         self._parentDirectoryPath = os.path.abspath(parentDirectoryPath)
 
         self._casing = casingStyle if casingStyle in LinkSourceList.CASING_STYLE.keys() else None
-        self._enableFileExtensions = enableFileExtensions
+        # self._enableFileExtensions = enableFileExtensions #FIXME: update when config files are added
 
         with open(self._filePath) as src:
             while True:
