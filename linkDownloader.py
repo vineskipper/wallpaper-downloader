@@ -15,7 +15,7 @@ def clearScreen(waitTime = 0):
 parser = argparse.ArgumentParser(prog="linkDownloader.py", description="Downloads and stores files using links from a text file")
 parser.add_argument("filePath", help="file to read from", metavar="file path", nargs="?", default=None)
 parser.add_argument("parentDirectory", help="parent directory to store downloaded files in", metavar="parent directory", nargs="?", default=None)
-parser.add_argument("-f", "--formatStyle", help="formatting style for directory names", metavar="optionNumber")
+parser.add_argument("-c", "--casing", help="casing style for directory names", metavar="casing type", default=None)
 parser.add_argument("-s", "--silent", action="store_true", help="enable silent mode")
 parser.add_argument("-i", "--interactive", action="store_true", help="enable interactive mode")
 #TODO: future arguments go here
@@ -36,10 +36,6 @@ if not os.path.isdir(PARENT_DIRECTORY):
 
 clearScreen()
 
-srcList = ec.LinkSourceList(FILEPATH, PARENT_DIRECTORY)
+srcList = ec.LinkSourceList(FILEPATH, PARENT_DIRECTORY, casingStyle=args.casing)
 
-errMessage = srcList.downloadAll()
-
-if errMessage:
-    print(f"Erorr: {errMessage}")
-    exit(1)
+srcList.printLinks(verbose=True) # for testing
