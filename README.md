@@ -5,8 +5,8 @@ A simple program that downloads, and stores files from links in a text file.
 ## Usage
 (WIP)
 
-### Optional arguments
-(WIP)
+**Optional arguments:**
+* (WIP)
 
 ## Format Guide
 - All entries should be written on seperate lines
@@ -43,9 +43,6 @@ This will run the program with a TUI that includes image displays, file and dire
 
 ### Silent mode
 This will run the program without displaying any errors that were encountered during runtime. It will instead store any error found in a log file for later use.
-
-### Comments
-This will allow comments to be written in the link source list file.
 
 ### Configuration Files
 Self-explanatory.
