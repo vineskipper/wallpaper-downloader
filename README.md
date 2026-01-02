@@ -30,13 +30,7 @@ https://images.pexels.com/photos/34533069/pexels-photo-34533069.jpeg , Daniel J.
 
 ## Upcoming Features (WIP)
 ### Automatic formating for directory and file names
-This will include options to format file and directory names in the following casings: 
-* snake case
-* camel case
-* kebab case
-* pascal case
-
-Additionally, file extension addition to file names will be added. These features will not be enabled by default.
+This will include file extension addition to file names. These features will not be enabled by default.
 
 ### Interactive mode
 This will run the program with a TUI that includes image displays, file and directory name changing, and a chance to manually select which files to download.
