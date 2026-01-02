@@ -30,15 +30,35 @@ class Link:
             return False
 
 class LinkSourceList:
-    COMMENT = ":-"
+    COMMENT_TOKEN = ":-"
+    CASING_STYLE = {None: 0, "snake": 1, "camel": 2, "kebab": 3, "pascal": 4}
 
-    def format(string: str, mode: int = 0) -> str:
-        ...
+    def format(string: str, casing: int = 0) -> str:
+        unformatted = string.split(" ")
 
-    def __init__ (self, filePath: str, parentDirectoryPath: str, format=None):
+        match casing:
+            case 1:
+                return "_".join(s.lower() for s in unformatted)
+
+            case 2:
+                return "".join(s.capitalize() if unformatted.index(s) != 0 else s.lower() for s in unformatted)
+            
+            case 3:
+                return "-".join(s.lower() for s in unformatted)
+            
+            case 4:
+                return "".join(s.capitalize() for s in unformatted)
+            
+            case _:
+                return string
+
+    def __init__ (self, filePath: str, parentDirectoryPath: str, casingStyle: str = None, enableFileExtensions: bool = True):
         self._filePath = filePath
         self._mailList: dict =  {}
         self._parentDirectoryPath = os.path.abspath(parentDirectoryPath)
+
+        self._casing = casingStyle if casingStyle in LinkSourceList.CASING_STYLE.keys() else None
+        self._enableFileExtensions = enableFileExtensions
 
         with open(self._filePath) as src:
             while True:
@@ -51,10 +71,10 @@ class LinkSourceList:
 
                 line = line.strip() # this is after the check because a blank line will be an empty string after being stripped of newline characters
                 
-                if line[0:2] == LinkSourceList.COMMENT:
+                if line[0:2] == LinkSourceList.COMMENT_TOKEN:
                     continue
 
-                commentPosition = line.find(LinkSourceList.COMMENT)
+                commentPosition = line.find(LinkSourceList.COMMENT_TOKEN)
 
                 if commentPosition + 1:
                     line = line[0:commentPosition].strip() # incase there were any spaces between the comment and the other contents of the line
@@ -63,8 +83,8 @@ class LinkSourceList:
                     currentDir = line[1:]
                     self._mailList[currentDir] = []
                 else:
-                    line = line.split(" , ")
-                    self._mailList[currentDir].append(Link(line[0], line[1], os.path.join(self._parentDirectoryPath, currentDir)))
+                    line = line.split(" , ") # 0 index is the link, 1 index is the name
+                    self._mailList[currentDir].append(Link(line[0], LinkSourceList.format(line[1], casing=LinkSourceList.CASING_STYLE[self._casing]), os.path.join(self._parentDirectoryPath, currentDir)))
 
         self._links = []
 
