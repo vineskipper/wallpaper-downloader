@@ -30,6 +30,8 @@ class Link:
             return False
 
 class LinkSourceList:
+    COMMENT = ":-"
+
     def format(string: str, mode: int = 0) -> str:
         ...
 
@@ -44,10 +46,18 @@ class LinkSourceList:
 
                 if not line:
                     break
-                elif line == "\n":
+                elif line == "\n": #NOTE: comments
                     continue
 
                 line = line.strip() # this is after the check because a blank line will be an empty string after being stripped of newline characters
+                
+                if line[0:2] == LinkSourceList.COMMENT:
+                    continue
+
+                commentPosition = line.find(LinkSourceList.COMMENT)
+
+                if commentPosition + 1:
+                    line = line[0:commentPosition].strip() # incase there were any spaces between the comment and the other contents of the line
 
                 if line[0] == "@": # destination directory indicator
                     currentDir = line[1:]
