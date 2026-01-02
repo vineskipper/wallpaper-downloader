@@ -12,12 +12,16 @@ A simple program that downloads, and stores files from links in a text file.
 - All entries should be written on seperate lines
 - Directory names should be preceeded by an at sign ("@") with no spaces between the at sign and the first character of the directory name (unless the space is an intended part of the directory name)
 - Links should include their web protocol (e.g: "https://") and be seperated from their intended file name by a space and a comma (" , "). **Be sure that the link is a file link**.
+- Comments must begin with ":-" and must be placed either at the end of a line, or on a seperate line.
+- While all entries must be on a seperate line, a blank line between each entry is not required.
 
 **Example file:**
 ```text
 @Directory name one
-https://images.pexels.com/photos/31203664/pexels-photo-31203664.jpeg , Галина Ласаева
+https://images.pexels.com/photos/31203664/pexels-photo-31203664.jpeg , Галина Ласаева :- valid comment position
 https://images.pexels.com/photos/34423216/pexels-photo-34423216.jpeg , WRITE ONDANDELIONS
+
+:- valid comment position
 
 @Directory name two
 https://images.pexels.com/photos/34375868/pexels-photo-34375868.jpeg , Memet Öz
@@ -26,13 +30,25 @@ https://images.pexels.com/photos/34533069/pexels-photo-34533069.jpeg , Daniel J.
 
 ## Upcoming Features (WIP)
 ### Automatic formating for directory and file names
-This will include snakecase, camelcase, automatic file naming, and file extension addition to file names. This be set by the user when running the program.
+This will include options to format file and directory names in the following casings: 
+* snake case
+* camel case
+* kebab case
+* pascal case
+
+Additionally, file extension addition to file names will be added. These features will not be enabled by default.
+
 ### Interactive mode
 This will run the program with a TUI that includes image displays, file and directory name changing, and a chance to manually select which files to download.
+
 ### Silent mode
 This will run the program without displaying any errors that were encountered during runtime. It will instead store any error found in a log file for later use.
+
 ### Comments
 This will allow comments to be written in the link source list file.
+
+### Configuration Files
+Self-explanatory.
 
 ## Origin
 I had the idea when I was getting new wallpapers, because:
