@@ -1,0 +1,6 @@
+pywebview
+argparse
+time
+os
+tqdm
+requests
