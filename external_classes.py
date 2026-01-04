@@ -32,6 +32,7 @@ class Link:
 class LinkSourceList:
     COMMENT_TOKEN = ":-"
     CASING_STYLE = {None: 0, "snake": 1, "camel": 2, "kebab": 3, "pascal": 4}
+    MODE = {"silent": 1, "interactive": 2}
 
     def format(string: str, casing: int = 0) -> str:
         unformatted = string.split(" ")
@@ -80,7 +81,7 @@ class LinkSourceList:
                     line = line[0:commentPosition].strip() # incase there were any spaces between the comment and the other contents of the line
 
                 if line[0] == "@": # destination directory indicator
-                    currentDir = line[1:]
+                    currentDir = LinkSourceList.format(line[1:], casing=LinkSourceList.CASING_STYLE[self._casing])
                     self._mailList[currentDir] = []
                 else:
                     line = line.split(" , ") # 0 index is the link, 1 index is the name
