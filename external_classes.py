@@ -31,8 +31,8 @@ class Link:
 
 class LinkSourceList:
     COMMENT_TOKEN = ":-"
-    CASING_STYLE = {None: 0, "snake": 1, "camel": 2, "kebab": 3, "pascal": 4}
-    MODE = {"silent": 1, "interactive": 2}
+    CASING_STYLE = {None: 0, "snake": 1, "camel": 2, "kebab": 3, "pascal": 4} #FIXME: maybe remove later
+    MODE = {"silent": 1, "interactive": 2} #FIXME: maybe remove later
 
     def format(string: str, casing: int = 0) -> str:
         unformatted = string.split(" ")
